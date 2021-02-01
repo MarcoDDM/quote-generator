@@ -5,16 +5,12 @@ const twitterBtn = document.getElementById('twitter');
 const newQuoteBtn = document.getElementById('new-quote');
 const loader = document.getElementById('loader');
 
-//Show loading
-
-const loading = () => {
+const showSpinnerLoading = () => {
     loader.hidden = false;
     quoteContainer.hidden = true;
 }
 
-//Hide loading
-
-const complete = () => {
+const removeSpinnerLoading = () => {
     if (!loader.hidden) {
         quoteContainer.hidden = false;
         loader.hidden = true;
@@ -23,7 +19,7 @@ const complete = () => {
 
 // Get Quote from API
 async function getQuote() {
-    loading();
+    showSpinnerLoading();
     const proxyUrl = 'https://immense-badlands-79686.herokuapp.com/'
     const apiUrl = 'http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json';
     try {
@@ -44,7 +40,7 @@ async function getQuote() {
     }
         quoteText.innerText = data.quoteText;
         //Stop Loader, show quote
-        complete();
+        removeSpinnerLoading();
     } catch (error) {
         getQuote();
     }
